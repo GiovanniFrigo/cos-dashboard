@@ -32,5 +32,5 @@ urlpatterns = [
     path("registry/today/", RegistryToday.as_view()),
     path("registry/maxEver/", max_player_count_ever),
     path("news/latest/", NewsLatest.as_view()),
-    # path("e0566b3ccc1c6eec6dace94cc3f9b776/", create_registry),
+    path("e0566b3ccc1c6eec6dace94cc3f9b776/", create_registry),
 ]
