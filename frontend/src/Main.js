@@ -17,18 +17,34 @@ export class Main extends Component {
 
   getValues = async () => {
     // number latest
-    const requestLatest = await fetch("http://10.0.1.7:8000/registry/latest/");
+    const requestLatest = await fetch(
+      `http://${
+        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
+      }:8000/registry/latest/`
+    );
     let jsonLatest = await requestLatest.json();
     // number today
-    const requestToday = await fetch("http://10.0.1.7:8000/registry/today/");
+    const requestToday = await fetch(
+      `http://${
+        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
+      }:8000/registry/today/`
+    );
     let jsonToday = await requestToday.json();
     let todayNumbers = jsonToday.map(o => o.playerCount);
     let todayMax = _.max(todayNumbers);
     // number ever
-    const requestEver = await fetch("http://10.0.1.7:8000/registry/maxEver/");
+    const requestEver = await fetch(
+      `http://${
+        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
+      }:8000/registry/maxEver/`
+    );
     let jsonEver = await requestEver.json();
     // news latest
-    const requestNewsLetest = await fetch("http://10.0.1.7:8000/news/latest/");
+    const requestNewsLetest = await fetch(
+      `http://${
+        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
+      }:8000/news/latest/`
+    );
     let jsonNewsLetest = await requestNewsLetest.json();
 
     this.setState({
