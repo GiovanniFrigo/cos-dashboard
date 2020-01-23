@@ -11,7 +11,7 @@ def job():
     # fake_request = HttpRequest()
     # create_registry(fake_request)
     try:
-        requests.get("http://localhost:8000/e0566b3ccc1c6eec6dace94cc3f9b776/")
+        requests.get("http://46.101.192.180:8000/e0566b3ccc1c6eec6dace94cc3f9b776/")
     except requests.exceptions.RequestException as e:
         print(e)
 
