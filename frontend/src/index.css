@@ -1,0 +1,58 @@
+body {
+  color: #333;
+  background-color: #fef6c9;
+}
+
+.main__logo {
+  margin: 0 auto;
+  width: 300px;
+  display: table;
+}
+
+.main__chars_background {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .main__chars_background {
+    display: block;
+    height: 500px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .main__chars_background {
+    height: 700px;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .main__chars_background {
+    height: 1000px;
+  }
+}
+@media only screen and (min-width: 2000px) {
+  .main__chars_background {
+    height: 1300px;
+  }
+}
+
+.big_number {
+  font-size: 80px;
+}
+
+.news_text {
+  font-size: 26px;
+  line-height: 40px;
+  font-weight: 300;
+}
+
+.text_center {
+  text-align: center;
+}
