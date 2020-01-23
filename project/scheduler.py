@@ -4,7 +4,7 @@ import requests
 import schedule
 from django.http import HttpRequest
 
-from app.views import create_registry
+from app.views_normal import create_registry
 
 
 def job():
