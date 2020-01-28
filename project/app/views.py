@@ -1,5 +1,5 @@
 import json
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 import requests
 from django.db.models import Max
@@ -8,8 +8,6 @@ from rest_framework import generics, serializers
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from app.models import CurrentNumber, News
-
-today = date.today()
 
 
 class RegistrySerializer(serializers.ModelSerializer):
@@ -36,7 +34,8 @@ class RegistryList(generics.ListCreateAPIView):
 
 
 class RegistryToday(generics.ListCreateAPIView):
-    queryset = CurrentNumber.objects.filter(createDate__day=today.day)
+    time_24_hours_ago = datetime.now() - timedelta(days=1)
+    queryset = CurrentNumber.objects.filter(createDate__gte=time_24_hours_ago)
     serializer_class = RegistrySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
