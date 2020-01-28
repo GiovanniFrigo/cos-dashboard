@@ -26,8 +26,12 @@ SECRET_KEY = "0#o9p&(6w=wael=)-7c(qikfr9qfei0wwzb)+75#fq-lu#=8s8"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '46.101.192.180']
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "46.101.192.180",
+    "cos-dashboard.strelkagames.com",
+]
 
 # Application definition
 
@@ -127,4 +131,5 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
+
