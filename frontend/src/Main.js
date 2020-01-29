@@ -3,11 +3,15 @@ import logo from "./assets/logo.png";
 import bkg_onlyCharacters from "./assets/bkg_onlyCharacters.png";
 import _ from "lodash";
 
+const serverAddress =
+  process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7";
+
 export class Main extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      loaded: false,
       numberCurrentPlayers: 0,
       number24HPlayers: 0,
       numberAllTime: 0,
@@ -18,59 +22,53 @@ export class Main extends Component {
   getValues = async () => {
     // number latest
     const requestLatest = await fetch(
-      `http://${
-        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
-      }:8000/registry/latest/`
+      `http://${serverAddress}:8000/registry/latest/`
     );
-    let jsonLatest = await requestLatest.json();
-    // number today
-    const requestToday = await fetch(
-      `http://${
-        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
-      }:8000/registry/today/`
+    const jsonLatest = await requestLatest.json();
+
+    // max in the last 24 hours
+    const request24hours = await fetch(
+      `http://${serverAddress}:8000/registry/max24hours/`
     );
-    let jsonToday = await requestToday.json();
-    let todayNumbers = jsonToday.map(o => o.playerCount);
-    let todayMax = _.max(todayNumbers);
-    // number ever
+    const json24hours = await request24hours.json();
+
+    // max today
     const requestEver = await fetch(
-      `http://${
-        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
-      }:8000/registry/maxEver/`
+      `http://${serverAddress}:8000/registry/maxEver/`
     );
-    let jsonEver = await requestEver.json();
+    const jsonEver = await requestEver.json();
+
     // news latest
-    const requestNewsLetest = await fetch(
-      `http://${
-        process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7"
-      }:8000/news/latest/`
+    const requestLatestNews = await fetch(
+      `http://${serverAddress}:8000/news/latest/`
     );
-    let jsonNewsLetest = await requestNewsLetest.json();
+    const jsonLatestNews = await requestLatestNews.json();
 
     this.setState({
+      loaded: true,
       numberCurrentPlayers: jsonLatest[0].playerCount,
-      number24HPlayers: todayMax,
+      number24HPlayers: json24hours.playerCount__max,
       numberAllTime: jsonEver.playerCount__max,
-      newsLatest: { ...jsonNewsLetest[0] }
+      newsLatest: { ...jsonLatestNews[0] }
     });
   };
 
   async componentDidMount() {
-    console.info("Start");
     this.getValues();
     setInterval(async () => {
-      console.info("Update");
       this.getValues();
     }, 11000);
   }
 
   render() {
     const {
+      loaded,
       numberCurrentPlayers,
       number24HPlayers,
       numberAllTime,
       newsLatest
     } = this.state;
+
     return (
       <div className="main">
         <div className="container">
@@ -90,7 +88,7 @@ export class Main extends Component {
                         players right now
                       </div>
                       <div className="big_number mb-0 font-weight-bold text-gray-800">
-                        {numberCurrentPlayers}
+                        {!loaded ? "--" : numberCurrentPlayers}
                       </div>
                     </div>
                   </div>
@@ -107,7 +105,7 @@ export class Main extends Component {
                         24-hour player peak
                       </div>
                       <div className="big_number mb-0 font-weight-bold text-gray-800">
-                        {number24HPlayers}
+                        {!loaded ? "--" : number24HPlayers}
                       </div>
                     </div>
                   </div>
@@ -124,7 +122,7 @@ export class Main extends Component {
                         all-time player peak
                       </div>
                       <div className="big_number mb-0 font-weight-bold text-gray-800">
-                        {numberAllTime}
+                        {!loaded ? "--" : numberAllTime}
                       </div>
                     </div>
                   </div>
