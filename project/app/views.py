@@ -27,6 +27,14 @@ def max_player_count_ever(request):
     return HttpResponse(json.dumps(maxNumberEver), content_type="application/json")
 
 
+def max_player_count_last_24hours(request):
+    time_24_hours_ago = datetime.now() - timedelta(days=1)
+    maxNumberToday = CurrentNumber.objects.filter(
+        createDate__gte=time_24_hours_ago
+    ).aggregate(Max("playerCount"))
+    return HttpResponse(json.dumps(maxNumberToday), content_type="application/json")
+
+
 class RegistryList(generics.ListCreateAPIView):
     queryset = CurrentNumber.objects.all()
     serializer_class = RegistrySerializer
@@ -34,8 +42,9 @@ class RegistryList(generics.ListCreateAPIView):
 
 
 class RegistryToday(generics.ListCreateAPIView):
-    time_24_hours_ago = datetime.now() - timedelta(days=1)
-    queryset = CurrentNumber.objects.filter(createDate__gte=time_24_hours_ago)
+    queryset = CurrentNumber.objects.filter(
+        createDate__gte=(datetime.now() - timedelta(days=1))
+    )
     serializer_class = RegistrySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 

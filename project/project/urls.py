@@ -22,6 +22,7 @@ from app.views import (
     NewsLatest,
     create_registry,
     max_player_count_ever,
+    max_player_count_last_24hours,
 )
 
 urlpatterns = [
@@ -31,6 +32,7 @@ urlpatterns = [
     path("registry/latest/", RegistryLatest.as_view()),
     path("registry/today/", RegistryToday.as_view()),
     path("registry/maxEver/", max_player_count_ever),
+    path("registry/max24hours/", max_player_count_last_24hours),
     path("news/latest/", NewsLatest.as_view()),
     path("e0566b3ccc1c6eec6dace94cc3f9b776/", create_registry),
 ]
