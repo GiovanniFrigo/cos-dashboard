@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import logo from "./assets/logo.png";
-import bkg_onlyCharacters from "./assets/bkg_onlyCharacters.png";
-import _ from "lodash";
+import logo from "./assets/logo-cof.png";
+// import bkg_onlyCharacters from "./assets/cof-bkg.jpg";
 
 const serverAddress =
   process.env.NODE_ENV === "production" ? "46.101.192.180" : "10.0.1.7";
+
+const serverPort = 8003;
 
 export class Main extends Component {
   constructor(props) {
@@ -22,19 +23,19 @@ export class Main extends Component {
   getValues = async () => {
     // number latest
     const requestLatest = await fetch(
-      `http://${serverAddress}:8000/registry/latest/`
+      `http://${serverAddress}:${serverPort}/registry/latest/`
     );
     const jsonLatest = await requestLatest.json();
 
     // max in the last 24 hours
     const request24hours = await fetch(
-      `http://${serverAddress}:8000/registry/max24hours/`
+      `http://${serverAddress}:serverPort/registry/max24hours/`
     );
     const json24hours = await request24hours.json();
 
     // max today
     const requestEver = await fetch(
-      `http://${serverAddress}:8000/registry/maxEver/`
+      `http://${serverAddress}:${serverPort}/registry/maxEver/`
     );
     const jsonEver = await requestEver.json();
 
@@ -150,12 +151,12 @@ export class Main extends Component {
           </div>
         </div>
 
-        <div
+        {/* <div
           className="main__chars_background"
           style={{
             backgroundImage: `url(${bkg_onlyCharacters})`
           }}
-        ></div>
+        ></div> */}
       </div>
     );
   }

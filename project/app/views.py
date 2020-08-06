@@ -63,7 +63,7 @@ class NewsLatest(generics.ListCreateAPIView):
 
 def create_registry(request):
     req = requests.get(
-        "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=1181790"
+        "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=1245570"
     )
 
     if req.status_code == 200:
