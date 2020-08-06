@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "46.101.192.180",
-    "cos-dashboard.strelkagames.com",
+    "cof-dashboard.strelkagames.com",
 ]
 
 # Application definition
