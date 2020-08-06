@@ -29,7 +29,7 @@ export class Main extends Component {
 
     // max in the last 24 hours
     const request24hours = await fetch(
-      `http://${serverAddress}:serverPort/registry/max24hours/`
+      `http://${serverAddress}:${serverPort}/registry/max24hours/`
     );
     const json24hours = await request24hours.json();
 
@@ -41,7 +41,7 @@ export class Main extends Component {
 
     // news latest
     const requestLatestNews = await fetch(
-      `http://${serverAddress}:8000/news/latest/`
+      `http://${serverAddress}:${serverPort}/news/latest/`
     );
     const jsonLatestNews = await requestLatestNews.json();
 
